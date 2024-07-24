@@ -1,0 +1,148 @@
+% Proofs and Programs .sty extension 
+
+% Math related packges.
+\usepackage{amsmath}
+\usepackage{amsthm} 
+\usepackage{amsfonts}
+%\usepackage{soul}
+
+% LEAN syntax highlighting
+\usepackage{listings}
+
+\usepackage{color}
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+%\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}  % grey
+\definecolor{commentcolor}{rgb}{0.1, 0.5, 0.1}   % green
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+
+\def\lstlanguagefiles{../../lstlean.tex}
+% set default language
+\lstset{language=lean}
+
+
+% Paragraph layout. 
+\usepackage{parskip}
+
+% Set the font. 
+\usepackage[T1]{fontenc}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{proof} 		% Natural deduction package.
+\usepackage{cancel}		% For discharging hypotheses.
+\usepackage{mdframed}	% Boxes around proofs. 
+
+% Package for hyperlinks
+\usepackage{hyperref}
+
+% Package for centering quotes
+\usepackage{csquotes}
+
+% Theorem, Definition, Example... 
+\newtheoremstyle{example}
+{10pt} % Space above
+{10pt} % Space below
+{} % Body font
+{0em} % Indent amount
+{\bf} % Theorem head font
+{} % Punctuation after theorem head
+{0.5em} % Space after theorem head
+{} % Theorem head spec
+\theoremstyle{example}
+\newtheorem{exmp}{Example}
+
+\newenvironment{eg}{\indent{\bf Example   }}{\hfill$\lrcorner$}
+
+% % Bibliography
+% \usepackage{biblatex}
+% \addbibresource{../../proofsPrograms.bib} 
+% % the ../../ acts to jump back to files in path.
+% % Command line sequence:
+% %   pdflatex *filename* without .tex
+% %   biber *filename* without .bib
+% %   pdflatex *filename* without .tex
+
+% Lambda calculus macros.
+% Custom macro for highlighting abstraction and argument
+\newcommand{\lamabsarg}[2]{%
+  \textcolor{blue}{#1}%
+  \textcolor{red}{#2}%
+}
+% Define the lambda macro
+\newcommand{\lterm}[2]{%
+  \lambda #1. \ #2%
+}
+
+\newcommand{\prop}{\text{Prop}}
+
+% Rule of inference shortcuts
+\newcommand{\IND}{\text{IND}}
+\newcommand{\THM}{\text{THM}}
+\newcommand{\MP}{\text{MP}}
+\newcommand{\PA}{\text{PA}}
+\newcommand{\IH}{\text{IH}}
+\newcommand{\RAA}{\text{RAA}}
+\newcommand{\DNE}{\text{DNE}}
+\newcommand{\DM}{\text{DM}}
+\newcommand{\XF}{\text{XF}}
+\newcommand{\MT}{\text{MT}}
+
+% Lambda reduction equivalences
+\newcommand{\aeq}{=_{\alpha} }
+\newcommand{\beq}{=_{\beta} }
+
+% Lambda Calculus Sugar
+\newcommand{\GO}{\text{GO}}
+\newcommand{\YCOMB}{\text{Y}}
+\newcommand{\PAIR}{\text{PAIR}}
+
+% Church Encoding: Logic
+\newcommand{\COND}{\text{COND}}
+\newcommand{\TRUE}{\text{TRUE}}
+\newcommand{\FALSE}{\text{FALSE}}
+\newcommand{\NOT}{\text{NOT}}
+\newcommand{\AND}{\text{AND}}
+\newcommand{\OR}{\text{OR}}
+\newcommand{\IMP}{\text{IMPLIES}}
+\newcommand{\NAND}{\text{NAND}}
+\newcommand{\NOR}{\text{NOR}}
+\newcommand{\XOR}{\text{XOR}}
+
+% CHURCH ENCODINGS: Arithmetic
+\newcommand{\ZERO}{\text{ZERO}}
+\newcommand{\zero}{\text{zero}}
+\newcommand{\ONE}{\text{ONE}}
+\newcommand{\TWO}{\text{TWO}}
+\newcommand{\THREE}{\text{THREE}}
+\newcommand{\FOUR}{\text{FOUR}}
+\newcommand{\FIVE}{\text{FIVE}}
+\newcommand{\SIX}{\text{SIX}}
+\newcommand{\ISITZERO}{\text{ZERO?}}
+\newcommand{\SUCC}{\text{SUCC}}
+\newcommand{\suc}{\text{succ}}
+\newcommand{\SUM}{\text{SUM}}
+\newcommand{\MULT}{\text{MULT}}
+\newcommand{\EXP}{\text{EXP}}
+\newcommand{\PRED}{\text{PRED}}
+\newcommand{\ACC}{\text{ACC}}
+
+% Type theory shortcuts
+\newcommand{\var}{\text{var}}
+\newcommand{\type}{\text{Type}} % Projection FirST
+\newcommand{\app}{\text{app}} % Projection FirST
+\newcommand{\fst}{\text{fst}} % Projection FirST
+\newcommand{\snd}{\text{snd}} % Projection SecoND
+\newcommand{\inr}{\text{inr}} % Or.intro_right
+\newcommand{\inl}{\text{inl}} % Or.intro_left
+\newcommand{\sumElim}{\text{cases}} % Sum type elimination
+\newcommand{\abort}{\text{abort}} % abort term from \bot elimination.
+
+% Mathematics notation.
+\newcommand{\bn}{\mathbb{N}}
+\newcommand{\bz}{\mathbb{Z}}
+\newcommand{\bq}{\mathbb{Q}}
+\newcommand{\br}{\mathbb{R}}
+\newcommand{\bc}{\mathbb{C}}
+

@@ -1,0 +1,97 @@
+# LaTeX auxiliary files
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+
+# Bibliography auxiliary files (bibtex/biblatex/biber)
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+# Build tool auxiliary files
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+
+# Beamer
+*.nav
+*.pre
+*.snm
+*.vrb
+
+# Changes in the text editor
+*.bak
+*.sav
+
+# Uncomment the next line if you want to ignore the project configuration file
+# *.latexmkrc
+
+# Ignore generated files
+*.dvi
+*.xdv
+
+# Ignore core latex/pdflatex auxiliary files
+*.loa
+
+# Ignore makeindex files
+*.idx
+*.ilg
+*.ind
+*.ist
+
+# Ignore glossaries
+*.acn
+*.acr
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.lzo
+*.lzs
+
+# Ignore nomencl
+*.nlg
+*.nlo
+*.nls
+
+# Ignore hyperref
+*.brf
+
+# Ignore listings
+*.lol
+
+# Ignore gnuplot
+*.gnuplot
+*.table
+
+# Ignore asymptote
+*.asy
+*.pre
+
+# Ignore upquote
+*.upb
+
+# Ignore package specific files
+*-gnuplottex-*
+*-tikzDictionary
+*-toc.tex
+
+# Ignore specific generated files
+*.dpth
+*.md5
+*.auxlock
