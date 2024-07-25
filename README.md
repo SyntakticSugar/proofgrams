@@ -1,6 +1,6 @@
 # Proofs and Programs 🚧 🏗️Under Construction 👷 🚧
 
-This repository hourses course materials for learning Logic, lambda calculus, and Lean. Including slides, lecture notes, and exercises. 
+This repository houses course materials for learning Logic, lambda calculus, and Lean. Including slides, lecture notes, and exercises. 
 
 ## Course Overview
 
