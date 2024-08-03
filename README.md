@@ -42,7 +42,7 @@ To get a feel for how working in Lean, both of the introductory games [Natural N
 
 4. **Recommended Resources:** 🔗
 
-    My course materials were developed while studying these excellent open resources:
+    My course materials were developed while studying these excellent resources:
 
     - [Theorem Proving in Lean 4](https://leanprover.github.io/theorem_proving_in_lean4/) by Avigad, de Moura, Kong, and Ullrich.
     - [Programming Language Foundations in Agda](https://plfa.github.io/) by Philip Wadler.
