@@ -28,6 +28,25 @@
 
 \maketitle
 
+\vspace*{3cm}
+
+\begin{quote}
+
+    ``For if praise is given to the men who have determined the number of regular solids - which is of no use, except insofar as it is pleasant to contemplate - and if it is thought to be an exercise worthy of a mathematical genius to have brought to light the more elegant properties of a conchoid or cissoid, or some other figure which rarely has any use, how much better will it be to bring under mathematical laws human reasoning, which is the most excellent and useful thing we have.''
+    \begin{flushright}
+        --- Gottfried Wilhelm Leibniz.\footnote{Quote obtained from Martin Davis' \emph{Universal Computer.}}
+    \end{flushright}
+
+\end{quote}
+
+
+\begin{quote}
+    ``I think it may be accepted as a starting point that the central problem in the foundation of mathematics is the construction of a symbolic system within which the body of extant mathematics may be derived in accordance with sharply stated and immediately applicable formal rules, and that other questions must be regarded as secondary on the ground that they cannot be given a definite meaning, in fact do not have a definite subject, until such a construction is accomplished. [...] In practice the search is for a formalized basis which is simple and brief beside the entire body of concretely existing mathematics but capable, under its rules of inference, of yielding this entire body and (infinite) further material [...].''
+    \begin{flushright}
+        --- Alonzo Church (1939\footnote{``The Present Situation in the Foundation of Mathematics.'' Alonzo Church, 1939.})
+    \end{flushright}
+\end{quote}
+
 \tableofcontents
 
 \chapter{Introduction}
@@ -38,11 +57,13 @@
           | zero : Peano
           | succ : Peano → Peano
     \end{lstlisting} 
-        
+    
+
+
     \newpage
     {\bf Acknowledgements} 
-    
-    These lecture notes have been made with reference to the following resources which should be consulted for further details on the subjects: 
+
+    These notes are written for second year students at the University of Canterbury taking an elective course on logic, computation, and mathematics. This document is largely an exposition on the work of Alonzo Church, Gerhard Gentzen, Haskell B. Curry, and William Howard. Although their original papers remain readable to the modern student of mathematics, further resources were referred to throughout the development of these lecture notes:
 
         \begin{enumerate}
             \item Logic and Structure, Drik van Dalen \cite{vDalen}
@@ -58,12 +79,92 @@
 
 \chapter{Proof Theory}
 
+\begin{quote}
+    ``The investigations that follow concern the domain of predicate logic. It comprises the types of inference that are contunally used in all parts of mathematics. What remains to be added to these are axioms and forms of inference that may be considered as being proper to the particular branches of mathematics.''
+    \begin{flushright}
+        --- Gerhard Gentzen (1935\footnote{``Investigations into Logical Deduction.''})
+    \end{flushright}
+\end{quote}
+
 \section{Reasoning}
 
 % Summary for upcoming sections. 
 When formalising an argument both the content of the terms in the argument and the way the statements are connected matter. We will first talk about propositional logic, which can be thought of as the formalisation of the connective structure of an argument. Only once that is covered will we move on to study first order predicate logic - this allows for content specific expressions. Together they will allow for the expression of mathematical definitions and theorems in such a way that the meta-analysis is amenable to computation. 
 
-\section{Formal Language}
+Reasoning and argumentation are not exclusively for the use of the mathematician. Human's use reasoning in every aspect of their lives, so let us first consider some examples of arguments, of reasoning, free of any mathematics. 
+
+\begin{eg}{Holmes and Watson}
+    If Watson moves into Baker St. with Holmes, then Holmes will be annoyed. Watson has indeed moved into Baker St. Therefore, Holmes must be annoyed.     
+\end{eg}
+
+In the previous example a number of declaritive sentences are stated, before a conclusion is made. In this case the conclusion of the reasoning is signalled by the use of \emph{therefore}. Sentences prior to the conclusion are called hypotheses; these are to be the evidence upon which the conclusion is founded. Further examples follow. As you read them, decide which sentences are hypotheses and which are conclusions? 
+
+\begin{eg}{Moriarty escapes}
+    If Watson can trap Moriarty, then Holmes can. Holmes has failed to catch Moriarty, therefore Watson can't catch him either. 
+\end{eg}
+
+\begin{eg}{Moriarty, harbinger of chaos}
+    Holmes has not caught Moriarty. For, either he catches Moriarty or the world will fall into chaos, and the world is surely in chaos. 
+\end{eg}
+
+\begin{eg}{Gladstone, the Good Doggo}
+    If Holmes is not on a case, then he gets bored. When Holmes is bored, he experiments on Gladstone - Watson's dog. Since Watson and Holmes are on a case, Gladstone is free for Holmes' experiments, today. 
+\end{eg}
+
+Statements of theorems in mathematics have the same abstract structure as the examples of every-day uses of language above. When a mathematician states a theorem they declare all the conditions underwhich their conclusion follows, before stating the conclusion. 
+
+\begin{eg}{Squeezing Theorem}
+    If $\{a_{n}\}$, $\{b_{n}\}$, and $\{c_{n}\}$ are sequences of real numbers such that $a_{n} < b_{n} < c_{n}$ and $L \in \mathbb{R}$, then if $a_{n}$ and $c_{n}$ converge to $L$, it must be the case that $b_{n}$ also converges to $L$. 
+\end{eg}
+
+\begin{eg}{Maxima}
+Suppose $f$ is continuous on the finite interval $[a,b]$ and $c \in [a,b]$ is a point at which $f$ attains a maximum. If $c \in (a,b)$ and $f'(x)$ exists at $c$, then $f'(c) = 0$. 
+\end{eg}
+
+Sometimes the assumed knowledge, assumed premises, are not explicitly referenced in the statement of the theorem. Rewrite each of the following theorem statements to make it clearer what they're arguing for and what that argument relies on. 
+
+\begin{eg}{Bounded Monotone}
+    Every bounded monotone sequence converges.
+\end{eg}
+
+\begin{eg}{Irrational surd}
+    $\sqrt{2}$ is irrational.
+\end{eg}
+
+
+
+\begin{definition}{Argument}
+    An argument is a finite collection of declarative sentences (propositions), one of which is singled out as the conclusion, while the others are referred to as premises. Premises are considered the evidence in support of the conclusion.
+\end{definition}
+
+\begin{eg}{Moriarty escapes}
+    If Watson can trap Moriarty, then Holmes can. Holmes has failed to catch Moriarty, therefore Watson can't catch him either. 
+
+    We can break the argument up into premises and conclusion as follows: 
+
+    \begin{itemize}
+        \item[P1:] If Watson can trap Moriarty, then Holmes can.
+        \item[P2:] Holmes has failed to catch Moriarty.
+        \item[C:] Watson can't catch Moriarty. 
+    \end{itemize}
+\end{eg}
+
+For each of the arguments above you will have felt a sense of whether the conclusion \emph{properly followed} from the premises. That is to say, whether the argument posed was correct. It is our objective to say, formally, when a conclusion can correctly be deduced from a set of premises. At this point is good to clarify that we are \emph{not} to say anything about any so called ``truth'' or ``falisity'' of the premises. We are simply interested in whether, \emph{given that the premises are the case, is it correct to say the conclusion is also the case}. Put another way, we will assume the premises have already been argued for, or that we are putting off their argument for now. 
+
+\begin{definition}{Sequent}
+
+    We introduce the following short hand
+
+    $$\Sigma \vdash \alpha$$ 
+
+    to denote that the conclusion $\alpha$ follows correctly from a set $\Sigma = \{P_{1},P_{2},...,P_{n}\}$ of premises for the conclusion $\alpha$. We say that $\alpha$ is a syntactic consequence of $\Sigma$. 
+
+\end{definition}
+
+Before we begin to analyse the structure of an argument, we add a layer of abstraction to help clarify some of the ambiguities present in a language like English. This layer of abstraction is called propositional logic. 
+
+
+\section{Propositional Logic}
 
 % Refer to the collection of propositions as Prop. Preempting Lean.
 % Cover syntax tree for wff.
@@ -168,7 +269,7 @@ This compact notation is simply stating that a proposition (term of type Prop) i
 
     
     \newpage
-    \subsection{Implication}
+    \subsection*{Implication}
 
     Recall that the BHK interpretation of a proof of implication says that, to prove an implication $P \to Q$ we must provide an algorithm for turning a proof of $P$ into a proof of $Q$. Ignoring the word algorithm again, this says we need a procedure for turning knowledge of $P$ into knowledge of $Q$. 
 
@@ -251,7 +352,7 @@ This compact notation is simply stating that a proposition (term of type Prop) i
     \end{eg}
 
     \newpage
-    \subsection{Conjunction}
+    \subsection*{Conjunction}
 
     Recall that the BHK interpretation of conjunction is that: A proof of the conjunction $P \land Q$ is an algorithm that takes in a proof of $P$ and a proof $Q$. If we (for now) brush over the word algorithm, then this simply states that a proof of the conjunction $P \land Q$ is a pair consisting of a proof of $P$ and a proof $Q$ --- To know $P \land Q$ is to know $P$ and to know $Q$. The following rules of inference are a diagrammatic representation of this idea. 
 
@@ -423,7 +524,7 @@ This compact notation is simply stating that a proposition (term of type Prop) i
 
     
     \newpage
-    \subsection{Disjunction}
+    \subsection*{Disjunction}
 
     Again we return to the BHK interpretation of the connectives to motivate the rules of inference for disjunction. Of disjunction the BHK says: to prove $P \lor Q$  we must provide either a proof of P or a proof of Q. Thus the introduction rules are straightforward, if we have a deduction witnessing $\Sigma \vdash P$, then it can be extended, via disjunction introduction, to a proof of $\Sigma \vdash P \lor Q$, for \emph{any} proposition $Q$. In fact there are two introduction rules, depending on which side of the disjunct one places the proposition $P$. 
 
@@ -539,7 +640,7 @@ This compact notation is simply stating that a proposition (term of type Prop) i
     \end{eg}
 
     \newpage
-    \subsection{Negation}
+    \subsection*{Negation}
 
     Recall the definition of $\lnot \alpha := \alpha \to \bot$, where $\bot$ denotes the proposition \emph{absurdity}. We think of $\lnot \alpha$ as being the proposition that $\alpha$ leads to absurdity. Therefore, in order to prove the negation of a proposition, one has to prove the corresponding implication. This means there are no new rules of inference for the negation connective. Negation introduction is a special case of implication introduction, whereas negation elimination is a special case of modus ponens. 
 
@@ -691,11 +792,11 @@ This compact notation is simply stating that a proposition (term of type Prop) i
     \end{array}$
 
     \newpage
-    \subsection{Ex Falso Quodlibet}
+    \subsection*{Ex Falso Quodlibet}
 
 
     \newpage
-    \subsection{Reductio ad Absurdum}
+    \subsection*{Reductio ad Absurdum}
 
     Previously we gave a proof witnessing the sequent $$\alpha \to \beta \ \vdash \ \lnot\beta \to \lnot\alpha $$ Whenever there is a sequent with just one hypothesis and one conclsuion, the converse sequent should be considered. Is it possible to provide a deduction witnessing the converse $$\lnot\beta \to \lnot\alpha \ \vdash \ \alpha \to \beta$$ That is to say, are these two implications logically equivalent? Let's see how much ground we can make on the proof. 
 
@@ -1102,7 +1203,31 @@ This compact notation is simply stating that a proposition (term of type Prop) i
 \chapter{Computation}
 
     \newpage
-    \section{Brouwer-Heyting-Kolmogorov}
+    \section{Proof Machines}
+
+    It might at first seem odd to think that computers and computation have anything at all to do with the process of proof in mathematics. These opening paragraphs aim to convey to the reader the relationship between these two subjects by considering a few strands in the history of mathematics. Much of this story can be read in more detail in Martin Davis' \emph{Universal Computer} and in many entries of the Standford Encyclopaedia of Philosophy.
+
+    % Comment on Leibniz' goal of the computability of reason. 
+
+
+    % Comment on Hilbert's dream. 
+    David Hilbert sought to settle questions about the possibilities of mathematics; so called, metamathematical questions. His declaration has come to be known as Hilbert's Program and the three primary goals of the program were to (i) show mathematics is consistent (ii) show mathematics is complete (iii) determine whether there was some ``finite procedure'' for determining theoremhood. All of the mathematics in these notes are motivated by this Program, however we turn specifically to the third; the search for a finite procedure to determine theoremhood. 
+
+    Specifically mathematicians wanted a solution to the so called ``entschiedungsproblem'' explained here by Alonzo Church: By the Entscheidungsproblem of a system of symbolic logic is here understood the problem to find an effective method by which, given any expression Q in the notation of the system, it can be determined whether or not Q is provable in the system\footnote{A note on the Entscheidungsproblem, Alonzo Church (1936)}. 
+    
+    In the language developed in these notes; determine an \emph{effective method} by which, given any well-formed formula $\phi$ of first order logic, it can determine whether $\phi$ is a theorem. One single procedure, to be carried about by Man or machine, to decide whether, for example, the Riemann Hypothesis is a theorem. When put like this it seems clear that this can't be possible. However, how does one \emph{prove} that there can be no such ``effective procedure'' or ``finite method''? Mathematicians knew  that a better understanding of the intended meaning of ``effective procedure'' was required. They had effective procedures for all manner of classes of problems e.g. addition and multiplication of numbers, approximation of roots of polynomials, and approximating solutions to differential equations. What would it mean for a class of problems to not have an effective procedure for determining their solution? To show this one needs to say precisely what an effective procedure is. Only then can one prove, using this method, one can never solve that problem. 
+
+    % Write a paragraph about G\"{o}del codes and how to make propositions and proofs objects of computation. Reducing questions about the computability of proofs to computability of functions of the natural numbers. 
+
+    % Comment on the many models of computation. 
+    In the decades that followed every man and his dog put forth their idea about what it means for a procedure to be effective. Collectively these came to be known as ``models of computation''. Alan Turing suggested his $\mathfrak{a}$-machines, later to be coined ``Turing Machines'' by his PhD thesis advisor Alonzo Church. Along with the description of his $\mathfrak{a}$-machines, Turing provided a substantial argument for why they really captured our informal notion of effective procedure. Church, and others, decreed that Turing was correct, and Turing Machines became the standard for computation against which other models of computation were judged. Procedures are considered effective if and only if they can be carried out by a Turing machine; this has come to be known as \emph{Church's Thesis}. Simultaneously, Stephen Kleene and Kurt G\"{o}del defined the class of general recursive functions and Alonso Church defined $\lambda$-calculus, both of which were promptly shown to be equivalent to the class of procedures computable by a Turing machine, hence also equivalent to one another. Like buses, Philip Wadler once said, you wait 2000 years for a concrete model of computation and all of a sudden you have three! 
+
+    % Comment on the BHK definition of the connectives. 
+
+
+    % Conclusion.
+    From the thoughts of Leibniz, to the dream of Hilbert, and the interpretation of proof given by Brouwer, Heyting, and Kolmogorov, we see that the development of computation and considerations of proof and reason have gone hand-in-hand. Logicians have been there along the entire development of the machines we now call computers, and that might have otherwise been named \emph{proofers}. Their work has contributed to both the hardware of the machines and the software we use to cast spells into the machine.\footnote{Imagery from Structure and Intepretation of Computer Programming aka ``The Wizard Work.''} For the remainder of these notes we introduce the $\lambda$-calculus and see its role in the development of modern proof assisstants. 
+
 
     \newpage
     \section{Untyped Lambda Calculus}
